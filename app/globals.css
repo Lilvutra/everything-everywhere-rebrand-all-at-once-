@@ -1,15 +1,3 @@
-:root {
-  --bg: #f5f7fb;
-  --card: #ffffff;
-  --border: #d7deea;
-  --text: #132238;
-  --muted: #61748b;
-  --primary: #2f6fed;
-  --primary-hover: #2359c0;
-  --danger-bg: #fdecec;
-  --danger-text: #9f1d1d;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -18,9 +6,9 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f7f7f9;
+  color: #222;
+  font-family: system-ui, sans-serif;
 }
 
 body {
@@ -28,9 +16,7 @@ body {
 }
 
 main {
-  width: min(1280px, calc(100vw - 32px));
-  margin: 0 auto;
-  padding: 24px 0 56px;
+  margin: 24px;
 }
 
 h1,
@@ -41,72 +27,75 @@ p {
   margin-top: 0;
 }
 
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.05);
-}
-
-.section-card {
-  padding: 20px;
-  margin-bottom: 18px;
-}
-
-.form-grid,
-.result-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-}
-
-.result-grid {
-  margin-top: 16px;
-}
-
-.label {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
+h1 {
   margin-bottom: 8px;
 }
 
-.hint {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-input[type="file"],
-input[type="text"],
-textarea {
-  width: 100%;
-  border: 1px solid var(--border);
+form {
+  background: white;
+  padding: 16px;
   border-radius: 12px;
-  padding: 12px 14px;
-  font: inherit;
-  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
 }
 
-textarea {
-  min-height: 140px;
-  resize: vertical;
+.hint {
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.error-box {
+  background: #ffe8e8;
+  color: #900;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  white-space: pre-wrap;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.card.wide {
+  grid-column: 1 / -1;
+}
+
+img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111;
+  color: #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  overflow: auto;
+  font-size: 13px;
 }
 
 button {
-  appearance: none;
-  border: 0;
-  border-radius: 12px;
-  padding: 12px 16px;
-  font: inherit;
-  font-weight: 600;
+  background: #60a5fa;
   color: white;
-  background: var(--primary);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
   cursor: pointer;
-}
-
-button:hover:not(:disabled) {
-  background: var(--primary-hover);
+  font: inherit;
 }
 
 button:disabled {
@@ -114,51 +103,53 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.actions {
-  margin-top: 14px;
+input[type="file"],
+textarea {
+  margin: 10px 0 14px 0;
 }
 
-.error-box {
-  margin-top: 12px;
-  background: var(--danger-bg);
-  color: var(--danger-text);
-  border-radius: 12px;
-  padding: 12px 14px;
-  white-space: pre-wrap;
-}
-
-.image-card,
-.summary-card {
-  padding: 14px;
-}
-
-.summary-card {
-  grid-column: 1 / -1;
-}
-
-.preview {
+input[type="text"] {
   width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: #fff;
+  max-width: 540px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font: inherit;
 }
 
-pre {
-  margin: 0;
+textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.checkbox-list {
+  max-height: 280px;
   overflow: auto;
-  white-space: pre-wrap;
-  word-break: break-word;
-  background: #0f172a;
-  color: #dbeafe;
-  border-radius: 12px;
-  padding: 14px;
-  font-size: 13px;
-}
-
-.section-heading {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
   margin-bottom: 12px;
 }
 
-.small-gap {
-  margin-bottom: 8px;
+.checkbox-item {
+  display: block;
+  margin: 6px 0;
+}
+
+.section-spacer {
+  margin-top: 16px;
+}
+
+.muted {
+  color: #666;
 }
