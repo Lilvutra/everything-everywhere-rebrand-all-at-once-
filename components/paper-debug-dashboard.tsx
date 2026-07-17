@@ -74,6 +74,9 @@ export function PaperDebugDashboard() {
   const [workflowCarId, setWorkflowCarId] = useState("");
   const [selectedOcrTexts, setSelectedOcrTexts] = useState<string[]>([]);
   const [manualExtraText, setManualExtraText] = useState("");
+  const [docOrientationClassify, setDocOrientationClassify] = useState(false);
+  const [docUnwarping, setDocUnwarping] = useState(false);
+  const [textlineOrientation, setTextlineOrientation] = useState(false);
 
   const paperSummary = getSummary(paperRun.data);
   const paperImages = getImages(paperRun.data);
@@ -102,6 +105,9 @@ export function PaperDebugDashboard() {
     try {
       const formData = new FormData();
       formData.append("image", paperFile);
+      formData.append("doc_orientation_classify", String(docOrientationClassify));
+      formData.append("doc_unwarping", String(docUnwarping));
+      formData.append("textline_orientation", String(textlineOrientation));
       const data = await postForm("/api/paper-debug/run", formData);
       setPaperRun({ loading: false, error: null, data });
     } catch (error) {
@@ -129,6 +135,9 @@ export function PaperDebugDashboard() {
         .map((line) => line.trim())
         .filter(Boolean);
       formData.append("manual_texts", [...selectedLines, ...extraLines].join("\n"));
+      formData.append("doc_orientation_classify", String(docOrientationClassify));
+      formData.append("doc_unwarping", String(docUnwarping));
+      formData.append("textline_orientation", String(textlineOrientation));
       const data = await postForm("/api/paper-debug/rerun", formData);
       setPaperRerun({ loading: false, error: null, data });
     } catch (error) {
@@ -206,6 +215,34 @@ export function PaperDebugDashboard() {
           required
           onChange={(event: ChangeEvent<HTMLInputElement>) => setPaperFile(event.target.files?.[0] ?? null)}
         />
+        <br />
+        <div className="hint">PaddleOCR preprocessing (off = current behavior)</div>
+        <label className="checkbox-item">
+          <input
+            type="checkbox"
+            checked={docOrientationClassify}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setDocOrientationClassify(event.target.checked)}
+          />{" "}
+          Doc orientation classify
+        </label>
+        <br />
+        <label className="checkbox-item">
+          <input
+            type="checkbox"
+            checked={docUnwarping}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setDocUnwarping(event.target.checked)}
+          />{" "}
+          Doc unwarping
+        </label>
+        <br />
+        <label className="checkbox-item">
+          <input
+            type="checkbox"
+            checked={textlineOrientation}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => setTextlineOrientation(event.target.checked)}
+          />{" "}
+          Textline orientation
+        </label>
         <br />
         <button type="submit" disabled={paperRun.loading}>{paperRun.loading ? "Running..." : "Run workflow"}</button>
       </form>
